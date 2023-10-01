@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block styles %}
+    <style>
+        small {
+           font-size: 0.8rem;
+        }
+    </style>
+{% endblock styles %}
+
+{% block main %}
+    
+    <section class="page-banner services-banner">
+        <div class="container">
+            <div class="banner-header">
+                <h2>Error 403</h2>
+                <span class="underline center"></span>
+                <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+            </div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li>Error 403</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div id="content" class="site-content">
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <div class="error-main">
+                    <div class="container">
+                        <div class="error-view">
+                            <div class="company-info">
+                                <div class="col-md-5 col-md-offset-1 border-dark-left">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="error-box bg-dark margin-left text-center">
+                                                <img src="static/images/error-403.png" alt="Error Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 border-dark new-user">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="error-info bg-light margin-right">
+                                                <h2>OOPS! <small>You Did Have Access to This Page</small></h2>
+                                                <a href="{{ url_for('main.index' ) }}" class="btn btn-primary">Back To Home</a>                                                                         
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    {% include 'includes/services-links.html' %}
+
+{% endblock main %}

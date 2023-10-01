@@ -1,0 +1,19 @@
+{% extends 'base/admin_base.html' %}
+
+{% block admin_main %}
+    <div class="inner-header">
+        <h3>Add Book</h3> 
+        <button><a href="{{ url_for('admin.category') }}">Back</a></button> 
+    </div>
+    <div class="form-section">
+        <form method="post">
+            
+            {% include 'includes/alerts.html' %}
+
+            <input type="text" name="category_name" placeholder="Enter category name">
+            <textarea name="category_info" placeholder="Enter category info"></textarea>
+
+            <input type="submit" value="Add Category">
+        </form>
+    </div>
+{% endblock admin_main %}

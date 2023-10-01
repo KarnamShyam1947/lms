@@ -1,0 +1,32 @@
+{% extends 'base/admin_base.html' %}
+
+{% block admin_main %}
+<div class="inner-header">
+    <h3>Add Book</h3> 
+    <button class="btn"><a href="{{ url_for('admin.home') }}">Back</a></button> 
+</div>
+<div class="form-section">
+    <form method="post" enctype="multipart/form-data">
+        
+        {% include 'includes/alerts.html' %}
+
+        <input type="text" name="book_name" placeholder="Enter book name">
+        <input type="text" name="author" placeholder="Enter book author">
+        <input type="number" name="price" min="0" placeholder="Enter book price">
+        <input type="text" name="language" placeholder="Enter book language">
+        <input type="text" name="book_info" placeholder="Enter book info">
+        <input type="number" name="length" min="0" placeholder="Enter number of pages">
+        <input type="text" name="edition" placeholder="Enter book's current edition">
+        <input type="text" name="publisher" placeholder="Enter book's publisher name">
+        <input type="file" name="file">
+        <select id="sc" name="category">
+            <option value="0" selected disabled>select category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Add Book">
+    </form>
+</div>
+{% endblock admin_main %}

@@ -1,0 +1,22 @@
+{% with messages = get_flashed_messages(with_categories = true)  %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alerts {{ category }}">
+            <div class="alert-msg">
+                {{ message }} 
+            </div>
+            <div class="close-btn">X</div>
+        </div> 
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<script>
+    closeBtn = document.querySelectorAll('.alerts');
+
+    closeBtn.forEach((cb) => {
+        cb.addEventListener('click', () => {
+            cb.parentNode.removeChild(cb);
+        });
+    });
+</script>

@@ -1,0 +1,54 @@
+{% extends 'base/admin_base.html' %}
+
+{% block admin_main %}
+<div class="inner-header">
+    <h3>Add Book</h3> 
+    <button><a href="{{ url_for('admin.home') }}">Back</a></button> 
+</div>
+<div class="form-section">
+    <form method="post" enctype="multipart/form-data">
+        
+        {% include 'includes/alerts.html' %}
+
+        <input value="{{ book.name }}" disabled type="text" name="book_name" placeholder="Enter book name">
+        <input value="{{ book.author }}" type="text" name="author" placeholder="Enter book author">
+        <input value="{{ book.price }}" type="number" name="price" min="0" placeholder="Enter book price">
+        <input value="{{ book.language }}" type="text" name="language" placeholder="Enter book language">
+        <input value="{{ book.book_info }}" type="text" name="book_info" placeholder="Enter book info">
+        <input value="{{ book.length }}" type="number" name="length" min="0" placeholder="Enter number of pages">
+        <input value="{{ book.edition }}" type="text" name="edition" placeholder="Enter book's current edition">
+        <input value="{{ book.publisher }}" type="text" name="publisher" placeholder="Enter book's publisher name">
+        <input type="file" name="file" id="file">
+        <select id="sc" name="category">
+            <option value="0" selected disabled>select category</option>
+            {% for category in categories %}
+                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+        <img src="{{ book.image_url }}" id="image"> 
+
+        <input type="submit" value="Update Book">
+    </form>
+</div>
+{% endblock admin_main %}
+
+{% block scripts %}
+    <script>
+        imageInput = document.querySelector("#file");
+
+        imageInput.addEventListener('change', () => {
+            renderImage();
+        });
+
+        function renderImage() {
+            let render = new FileReader();
+            render.readAsDataURL(imageInput.files[0]);
+        
+            console.log(imageInput.files[0]);
+        
+            render.onload = () => {
+                image.setAttribute('src', render.result);
+            };
+        }
+    </script>
+{% endblock scripts %}

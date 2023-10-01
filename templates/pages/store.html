@@ -1,0 +1,121 @@
+{% extends 'base/base.html' %}
+
+{% block main %}
+
+    <section class="page-banner services-banner">
+        <div class="container">
+            <div class="banner-header">
+                <h2>Book Store</h2>
+                <span class="underline center"></span>
+                <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+            </div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li>Store</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div id="content" class="site-content">
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <div class="books-full-width">
+                    <div class="container">
+                        <!-- Start: Search Section -->
+                        <section class="search-filters">
+                            <div class="filter-box">
+                                <h3>What are you looking for at the library?</h3>
+                                <form action="{{ url_for('main.store') }}" method="POST">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Search by Keyword" id="keywords" name="keyword" type="text">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="form-group">
+                                            <select name="category" id="category" class="form-control">
+                                                <option value="0">All Categories</option>
+                                                {% for category in categories %}
+                                                    <option value="{{ category.id }}">{{ category }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clear"></div>
+                        </section>
+                        <!-- End: Search Section -->
+
+                        {% if search_str %}
+                            Search result for : <b>{{ search_str }}</b>
+                        {% endif %}
+
+                        <div class="booksmedia-fullwidth">
+                            <ul>
+                                {% if books %}
+                                    {% for book in books %}
+                                    <li>
+                                        <div class="book-list-icon"></div>
+                                        <figure>
+                                            <a href="books-media-detail-v1.html"><img src="data:image/jpeg;base64,{{ book.image_url }}" alt="Book"></a>
+                                            <figcaption>
+                                                <header>
+                                                    <h4><a>{{ book.name }}</a></h4>
+                                                    <p><strong>Author:</strong>{{ book.author }}</p>
+                                                    <p><strong>category: </strong>{{ book.category }}</p>
+                                                </header>
+                                                <p>{{ book.book_info }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ex nulla non dolores consequuntur repellat sapiente ut sint ipsa cumque.</p>
+                                                {% if current_user.is_authenticated %}
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li>
+                                                                <a href="/add-to-cart?book-id={{ book.id }}" title="Add TO CART">
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                {% endif %}
+                                            </figcaption>
+                                        </figure>                                                
+                                    </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <nav>
+                            <ul class="pagination">
+                              <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item active">
+                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                              </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    {% include 'includes/services-links.html' %}
+
+{% endblock main %}
+

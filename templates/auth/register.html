@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" type="text/css" />
+{% endblock styles %}
+                
+{% block main %}
+
+     <!-- Start: Page Banner -->
+     <section class="page-banner services-banner">
+        <div class="container">
+            <div class="banner-header">
+                <h2>Our Services</h2>
+                <span class="underline center"></span>
+                <p class="lead">The standard chunk of Lorem Ipsum used since</p>
+            </div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li>Register</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End: Page Banner -->
+
+    <div class="form-section">
+        <h1>Sign Up</h1>
+        <form action="{{ url_for('auth.register') }}" method="post">
+            
+            {% include 'includes/alerts.html' %}
+            
+            <input type="text" name="username" placeholder="Enter your username">
+            <input type="email" name="email" placeholder="Enter your Email">
+            <input type="password" name="password" placeholder="Enter your password">
+            <input type="password" name="password1" placeholder="Conform your password">
+
+            <input required type="checkbox" name="remember" id="rem">
+            <label for="rem">Agree to terms and conditions</label>
+            <input type="submit" value="Register">
+        </form>
+        <p>Already have an account <a href="{{ url_for('auth.login') }}">login</a> </p>
+    </div>
+{% endblock main %}
+        
+        

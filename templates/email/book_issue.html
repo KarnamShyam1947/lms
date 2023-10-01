@@ -1,0 +1,30 @@
+<pre>
+Dear {{ user.name }},
+
+I hope this email finds you well. Here are the details of your book which have been checked out:
+
+<table>
+    <tr>
+        <th>Book Title</th>
+        <td>{{ book.name }}</td>
+    </tr>
+    <tr>
+        <th>Author</th>
+        <td>{{ book.author }}</td>
+    </tr>
+    <tr>
+        <th>Checked out Date</th>
+        <td>{{ barrow.time.strftime('%B %d, %Y %H:%M') }}</td>
+    </tr>
+    <tr>
+        <th>Due Date</th>
+        <td>{{ due_date.strftime('%B %d, %Y') }}</td>
+    </tr>
+</table>
+
+Thanks for using your services.
+
+Best regards,
+Team LMS
+    
+</pre>

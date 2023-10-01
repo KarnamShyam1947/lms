@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer" />
+            
+    </head>
+
+    
+</html>
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>   
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer" />
+                       
+        <!-- Meta -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+        
+        <!-- Title -->
+        <title>..:: LIBRARIA ::..</title>
+        
+        <!-- Favicon -->
+        <link href="{{ url_for('static', filename='images/favicon.ico') }}" rel="icon" type="image/x-icon" />
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+        {% block styles %} {% endblock styles %}
+        
+    </head>
+
+    <body>
+        
+        <img class="bg-img" src="static/images/admin-bg.jpg" alt="">
+        <div class="admin-home">
+            <div class="admin-head">
+                <h1>Admin Dashboard</h1>
+            </div>
+
+            <div class="admin-body">
+                <div class="cards">
+                    <div style="--clr:blue" class="card">
+                        <i class="fa-solid fa-book-open"></i>
+                        <div class="info">
+                            Books <br>
+                            count : {{ b.get_count() }}
+                        </div>
+                        <div style="--clr:blue" class="link"><a href="{{ url_for('admin.home') }}">More</a></div>
+                    </div>
+                    <div style="--clr:rgb(90, 128, 0)" class="card">
+                        <i class="fa-solid fa-barcode"></i>
+                        <div class="info">
+                            Category <br>
+                            count : {{ c.get_count() }}
+                        </div>
+                        <div class="link" style="--clr:rgb(90, 128, 0);"><a href="{{ url_for('admin.category') }}">More</a></div>
+                    </div>
+                    <div style="--clr:red" class="card">
+                        <i class="fa-solid fa-user"></i>
+                        <div class="info">
+                            Users <br>
+                            count : {{ u.get_count() }}
+                        </div>
+                        <div class="link" style="--clr:red"><a href="{{ url_for('admin.users') }}">More</a></div>
+                    </div>
+                </div>
+                <div class="admin-main">
+                    {% block admin_main %}
+                        
+                    {% endblock admin_main %}
+                </div>
+            </div>
+        </div>
+
+        {% block scripts %} {% endblock scripts %}
+    </body>
+</html>

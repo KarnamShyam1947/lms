@@ -1,0 +1,31 @@
+<pre>
+Hello {{ user.name }},
+
+I hope this email finds you well. This is an information mail that your due on checked out book is expired.
+The checked out book details:
+
+<table>
+    <tr>
+        <th>Book Title</th>
+        <td>{{ book.name }}</td>
+    </tr>
+    <tr>
+        <th>Author</th>
+        <td>{{ book.author }}</td>
+    </tr>
+    <tr>
+        <th>Checked out Date</th>
+        <td>{{ time.strftime('%B %d, %Y %H:%M') }}</td>
+    </tr>
+    <tr>
+        <th>Due Date</th>
+        <td>{{ due_date.strftime('%B %d, %Y') }}</td>
+    </tr>
+</table>
+
+As your due is expire please return the book and pay fine as fast as possible. 
+Thanks for using your services.
+
+Best regards,
+Team LMS
+</pre>

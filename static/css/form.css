@@ -1,0 +1,354 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-section {
+    width: 50%;
+    margin: auto;
+    height: 600px;
+    overflow: scroll;
+}
+
+form {
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: black ;
+}
+
+input[type=submit] {
+    display: block;
+    background: #ff5208;
+    height: 40px;
+    margin-bottom: 20px;
+    width: 85%;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+::file-selector-button {
+    height: 100%;
+    background: gray;
+    border: 0;
+}
+
+input[type=file] {
+    display: block;
+    background-color: white;
+    height: 50px;
+    margin:20px auto 20px auto;
+    width: 95%;
+    font-size: 20px;
+    padding: 0;
+    font-weight: 700;
+}
+
+select {
+    width: 95%;
+    margin-left: 20px;
+    height: 50px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+textarea {
+    height: 200px;
+}
+
+textarea,
+input[type=number],
+input[type=email],
+input[type=password],
+input[type=text] {
+    display: block;
+    border: 1px rgb(0, 0, 0) solid;
+    height: 40px;
+    padding: 10px 20px;
+    margin:0 auto 20px auto;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+label {
+    cursor: pointer;
+}
+
+input[type=checkbox] {
+    accent-color: #F57035;
+}
+
+.alerts {
+    font-size: 20px;
+    border: 1px solid black;
+    margin: 0 auto 20px auto;
+    font-weight: bold;
+    display: flex;
+    color: black;
+    width: 100%;
+}
+
+input[type=submit] {
+    width: 100%;
+    margin: 20px auto 100px auto;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.error {
+    border: 1px solid red;
+    color: red;
+    background: rgba(255, 0, 0, 0.127);
+}
+
+.success {
+    border: 1px solid green;
+    color: green;
+    background: rgba(0, 128, 0, 0.314);
+}
+
+.alert-msg {
+    padding: 10px 20px;
+    width: calc(100% - 25px);
+}
+
+.close-btn {
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    width: 25px;
+    text-align: center;
+    font-size: 25px;
+}
+
+ul {
+    list-style: none;
+}
+
+.nav-links ul li{
+    line-height: 50px;
+    color: white;
+    font-size: 20px;
+
+}
+
+.admin-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links ul li:hover {
+    margin-left: 5px;
+    color: #F57035;
+}
+
+.admin-head {
+    padding: 15px 0;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.card {
+    position: relative;
+    height: 70px;
+    display: flex;
+    width: 300px;
+    margin: 10px;
+    background-color: var(--clr);
+}
+
+.card i {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: black;
+    background: rgba(0, 0, 0, 0.318);
+}
+
+.link {
+    position: absolute;
+    bottom: -19px;
+    width: 100%;
+    background-color: var(--clr);
+    text-align: center;
+}
+
+.link a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.card .info {
+    padding-left: 30px;
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+    padding-top: 10px;
+}
+
+.admin-main {
+    width: 80%;
+    margin: 50px auto 0 auto;
+}
+
+.inner-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn a {
+    color: black;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+.my-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid white;
+    text-align: center;
+    color: white;
+}
+
+.my-table thead th{
+    background: black;
+    border: 1px solid white;
+    color: white !important;
+    padding: 8px 0px;
+    font-size: 23px;
+    text-transform: capitalize;
+}
+
+tbody td {
+    max-width: 200px;
+    text-align: center;
+    padding: 5px 2px;
+    font-size: 20px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
+td button {
+    background: transparent;
+    border: 0;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.401);
+}
+
+.popup-content {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 15px;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.637);
+    transition: all 0.5s;
+}
+
+.popup-content.show {
+    top: 50%;
+}
+
+.popup-info {
+    padding-top: 20px;
+}
+
+.c-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;    
+}
+
+
+.form-section p {
+    text-align: center;
+    font-size: 22px;
+}
+
+.form-section p a {
+    color: black;
+    text-decoration: underline;
+    transition: all 0.3s;
+    text-transform: capitalize;
+}
+
+.form-section p a:hover {
+    color: #F57035;
+}
+
+label.username {
+    font-size: 20px;
+    color: white;
+    text-transform: capitalize;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links a {
+    text-transform: capitalize;
+    font-size: 18px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+td img{
+    height: 150px;
+}
+
+.bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+h1, h3 {
+    color: white;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 25px;
+}

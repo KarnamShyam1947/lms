@@ -1,0 +1,198 @@
+{% extends 'base/admin_base.html' %}
+
+{% block styles %}
+    <style>
+        .pagination {
+            display: inline-block;
+            padding-left: 0;
+            margin: 20px 0;
+            border-radius: 4px;
+            background: transparent !important;
+          }
+          .pagination > li {
+            display: inline;
+          }
+          .pagination > li > a,
+          .pagination > li > span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            line-height: 1.42857143;
+            text-decoration: none;
+            color: #ff7236;
+            background-color: transparent;
+            border: 1px solid #ddd;
+            margin-left: -1px;
+          }
+          .pagination > li:first-child > a,
+          .pagination > li:first-child > span {
+            margin-left: 0;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+          }
+          .pagination > li:last-child > a,
+          .pagination > li:last-child > span {
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+          }
+          .pagination > li > a:hover,
+          .pagination > li > span:hover,
+          .pagination > li > a:focus,
+          .pagination > li > span:focus {
+            z-index: 2;
+            color: #e84500;
+            background-color: #eeeeee;
+            border-color: #ddd;
+          }
+          .pagination > .active > a,
+          .pagination > .active > span,
+          .pagination > .active > a:hover,
+          .pagination > .active > span:hover,
+          .pagination > .active > a:focus,
+          .pagination > .active > span:focus {
+            z-index: 3;
+            color: #fff;
+            background-color: #ff7236;
+            border-color: #ff7236;
+            cursor: default;
+          }
+          .pagination > .disabled > span,
+          .pagination > .disabled > span:hover,
+          .pagination > .disabled > span:focus,
+          .pagination > .disabled > a,
+          .pagination > .disabled > a:hover,
+          .pagination > .disabled > a:focus {
+            color: #cfcfcf;
+            background-color: transparent;
+            border-color: #ddd;
+            cursor: not-allowed;
+          }
+    </style>
+{% endblock styles %}
+
+{% block admin_main %}
+    <div class="inner-header">
+        <h3>Users</h3> 
+        <button class="btn"><a href="{{ url_for('admin.add_book') }}">Add Book</a></button> 
+    </div>
+
+    {% include 'includes/alerts.html' %}
+
+    <table class="my-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>current Image</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Length</th>
+                <th>Edition</th>
+                <th>Language</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in pages.items %}
+                <tr>
+                    <td>{{ book.id }}</td>
+                    <td><img src="data:image/jpeg;base64,{{ book.image_url }}" alt=""></td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>{{ book.length }}</td>
+                    <td>{{ book.edition }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>
+                        <button>
+                            <a href="/update-book/{{ book.id }}" title="Edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </button>
+
+                        <button>
+                            <a href="#" onclick="call(`{{ book.id }}`)" title="Delete">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </button>
+                        
+                        <button id="info-btn" title="Info"><a href="#"><i class="fa-solid fa-circle-info"></i></a></button>
+                    </td>
+                </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <nav>
+        <ul class="pagination">
+          <li class="{% if not pages.has_prev %} disabled {% endif %}">
+            <a href="./admin?page={{ pages.prev_num }}">Previous</a>
+          </li>
+
+            {% for page in pages.iter_pages() %}
+                <li class="{% if page == pages.page %} active {% endif %}">
+                    <a href="./admin?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+
+          
+
+          <li class="{% if not pages.has_next %} disabled {% endif %}">
+            <a href="./admin?page={{ pages.next_num }}">Next</a>
+          </li>
+        </ul>
+    </nav>
+
+    <div class="popup"></div>
+
+    <div class="popup-content">
+        <div class="c-btn">&times;</div>
+        <div class="popup-info">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi nostrum nam, laborum, libero voluptatum sed quos maiores deserunt cum officiis molestiae, facere odio magnam ratione. Possimus reiciendis corporis repellendus laboriosam.
+        </div>
+    </div>
+{% endblock admin_main %}   
+
+{% block scripts %}
+    <script>
+        btn = document.querySelector("#info-btn");
+        cBtn = document.querySelector(".c-btn");
+        popup = document.querySelector(".popup");
+        popupContent = document.querySelector(".popup-content");
+        popup.style.display = 'none';
+
+        btn.addEventListener('click', () => {
+            popup.style.display = 'block';
+            popupContent.classList.add('show');
+        });
+        
+        cBtn.addEventListener('click', () => {
+            popup.style.display = 'none';
+            popupContent.classList.remove('show');
+        });
+
+        function call(id) {
+            if(confirm('Are you sure u want to delete???')) {
+                deleteBook(id);
+            }
+        }
+
+        function deleteBook(id) {
+            link = `book-api/${id}`;
+
+            fetch(link, {
+                method:'DELETE'
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                window.location.href('https://localhost:5000/admin');
+            })
+            .catch((e) => console.log(e));
+        }
+    </script>
+{% endblock scripts %}

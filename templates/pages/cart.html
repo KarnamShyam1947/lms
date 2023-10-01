@@ -1,0 +1,130 @@
+{% extends 'base/base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="static/css/form.css">
+
+    <style>
+        .site-content {
+            width: 85%;
+            margin: auto;
+            margin-top: 100px;
+        }
+        h3,
+        h1 {
+            color: black !important;
+            margin: 20px 0;
+        }
+        h3 {
+            text-align: center;
+        }
+        table {
+            width: 70% !important;
+            margin: auto;
+        }
+
+        .my-table {
+            margin-top: 20px;
+        }
+
+        .my-table th {
+            text-align: center !important;
+        }
+
+        table th,
+        table td{
+            color: black;
+            border: 2px solid black !important;
+        }
+
+        .reBtn {
+            background: rgb(255, 89, 0);
+            color: black;
+            padding: 5px 10px;
+            font-size: 18px;
+            text-transform: capitalize;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock styles %}
+
+{% block main %}
+
+    <section class="page-banner services-banner">
+        <div class="container">
+            <div class="banner-header">
+                <h2>My CheckOuts</h2>
+                <span class="underline center"></span>
+                <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+            </div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li>Checkouts</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div id="content" class="site-content">
+        <h3>My CheckOuts</h3>
+        {% include 'includes/alerts.html' %}
+        <table class="my-table">
+            <thead>
+                <tr>
+                    {# <th>Borrow Id</th> #}
+                    <th>BOOK ID</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Time</th>
+                    <th>Due date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book, due_date in books %}
+                    <tr>
+                        {# <td>{{ book.barrow_id }}</td> #}
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.time.strftime('%B %d, %Y %H:%M') }}</td>
+                        <td>{{ due_date.strftime('%B %d, %Y %H:%M') }}</td>
+                        <td>
+                            <button class="reBtn" onclick="returnBook(`{{ book.barrow_id }}`)">return</button>
+                        </tr>
+                    </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'includes/services-links.html' %}
+
+{% endblock main %}
+
+{% block scripts %}
+    <script>
+        function returnBook(id) {
+            if(confirm('Are u sure u want to return the book')) {
+                returnBookApiCall(id);
+            }
+        }
+
+        function returnBookApiCall(id) {
+            let url = `/barrow-api/${id}`;
+
+            fetch(url, {
+                method: 'DELETE'
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                window.location.reload();
+            })
+            .catch((error) => console.log(error));
+        }
+    </script>
+{% endblock scripts %}
+

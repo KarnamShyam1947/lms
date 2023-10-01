@@ -1,0 +1,122 @@
+<header id="header-v1" class="navbar-wrapper">
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-default">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="navbar-header">
+                            <div class="navbar-brand">
+                                <h1>
+                                    <a href="index.html">
+                                        <img src="{{ url_for('static', filename='images/libraria-logo-v1.png') }}" alt="LIBRARIA" />
+                                    </a>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+
+                        <div class="header-topbar hidden-sm hidden-xs">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="topbar-info">
+                                        <a href="tel:+61-3-8376-6284"><i class="fa-solid fa-phone"></i>+61-3-8376-6284</a>
+                                        <span>/</span>
+                                        <a href="mailto:vitap.library@gmail.com"><i class="fa-solid fa-envelope"></i>vitap.library@gmail.com</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="topbar-links">
+                                        {% if current_user.is_authenticated %}
+                                            <label class="username">Hello, {{ current_user.name }}</label>
+                                        {% else %}
+                                            <a href="{{ url_for('auth.login') }}"><i class="fa fa-lock"></i>Login / Register</a>
+                                        {% endif %}
+                                        <span>|</span>
+                                        <div class="header-cart dropdown">
+                                            <a href="{{ url_for('book.book_cart' ) }}">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                            {% if book_count %}
+                                                <small>{{ book_count }}</small>
+                                            {% else %}
+                                                <small>0</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="navbar-collapse hidden-sm hidden-xs">
+                            <ul class="nav navbar-nav">
+                                <li class="{% if request.path =='/' %} active {% endif %}" >
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="{{ url_for('main.index') }}">Home</a>
+                                </li>
+                                <li class="{% if request.path =='/store' %} active {% endif %}">
+                                    <a href="{{ url_for('main.store') }}">Store</a>
+                                </li>
+                                <li class="{% if request.path =='/cart' %} active {% endif %}">
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="{{ url_for('book.book_cart') }}">Checkouts</a>
+                                </li>
+                                
+                                <li class="{% if request.path == '/services' %} active {% endif %}" ><a href="{{ url_for('main.services' ) }}">Services</a></li>
+                                <li class="{% if request.path == '/contact' %} active {% endif %}" ><a href="{{ url_for('main.contact') }}">Contact</a></li>
+                                {% if current_user.is_authenticated %}
+                                    <li class="dropdown">
+                                        <a data-toggle="dropdown" class="dropdown-toggle disabled" href="#">Account</a>
+                                        <ul class="dropdown-menu">
+                                            {% if current_user.isAdmin == 1 %}
+                                                <li><a href="{{ url_for('admin.home') }}">Dashboard</a></li>
+                                            {% endif %}
+                                            <li><a href="{{ url_for('auth.change_password') }}">change password</a></li>
+                                            <li><a href="{{ url_for('auth.logout') }}">logout</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu hidden-lg hidden-md">
+                    <a href="#mobile-menu"><i class="fa fa-navicon"></i></a>
+                    <div id="mobile-menu">
+                        <ul>
+                            <li class="mobile-title">
+                                <h4>Navigation</h4>
+                                <a href="#" class="close"></a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('main.index') }}">Home</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('main.store') }}">Store</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('book.book_cart' ) }}">Checkouts</a>
+                            </li>
+                            <li><a href="{{ url_for('main.services' ) }}">Services</a></li>
+                            <li><a href="{{ url_for('main.contact' ) }}">Contact</a></li>
+                            {% if current_user.is_authenticated %}
+                            <li>
+                                <a href="#">Account</a>
+                                <ul>
+                                    {% if current_user.isAdmin == 1 %}
+                                        <li><a href="{{ url_for('admin.home') }}">Dashboard</a></li>
+                                    {% endif %}
+                                    <li><a href="{{ url_for('auth.change_password') }}">change password</a></li>
+                                    <li><a href="{{ url_for('auth.logout') }}">logout</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ url_for('auth.login') }}">Login/signup</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>

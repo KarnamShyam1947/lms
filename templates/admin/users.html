@@ -1,0 +1,119 @@
+{% extends 'base/admin_base.html' %}
+
+{% block admin_main %}
+    <div class="inner-header">
+        <h3>Users</h3> 
+    </div>
+
+    {% include 'includes/alerts.html' %}
+
+    <table class="my-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th> 
+                <th>Is Admin</th>
+                <th>Is verified</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td> 
+                    <td>
+                        {% if user.isAdmin %}
+                            True
+                        {% else %}
+                            False
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.isVerified %}
+                            True
+                        {% else %}
+                            False
+                        {% endif %}
+                    </td>
+                    <td>
+                        {# <button><a href="#" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a></button> #}
+                        {# <button><a href="#" title="Delete"><i class="fa-solid fa-trash-can"></i></a></button> #}
+                        
+                        {% if user.isAdmin %}
+                            <button onclick="removeAdmin(`{{ user.id }}`)">
+                                <a href="#" title="remove admin access">
+                                    <i class="fa-solid fa-user-minus"></i>
+                                </a>
+                            </button>
+                        {% else %}
+                            <button onclick="addAdmin(`{{ user.id }}`)">
+                                <a href="#" title="make admin">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </a>
+                            </button>
+                        {% endif %}
+
+                        <button onclick="deleteUser(`{{ user.id }}`)">
+                            <a title="Delete">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+        <script>
+            function makeAdmin(id) {
+                if(confirm('Are you sure you want to grant access')) {
+                    url = `/user-api/${id}?type=1`;
+
+                    fetch(url, {
+                        method: 'GET'
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        location.reload();
+                    })
+                    .catch((e) => console.log(e));
+                }
+            }
+
+            function removeAdmin(id) {
+                if(confirm('Are you sure you want to remove access')) {
+                    url = `/user-api/${id}?type=0`;
+
+                    fetch(url, {
+                        method: 'GET'
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        location.reload();
+                    })
+                    .catch((e) => console.log(e));
+                }
+            }
+            
+            function deleteUser(id) {
+                if(confirm('Are you sure you want to delete user')) {
+                    url = `/user-api/${id}`;
+
+                    fetch(url, {
+                        method: 'DELETE'
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        location.reload();
+                    })
+                    .catch((e) => console.log(e));
+                }
+            }
+        </script>
+{% endblock admin_main %}
